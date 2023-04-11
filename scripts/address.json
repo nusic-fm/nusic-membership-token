@@ -1,0 +1,11 @@
+{
+    "localhost": {
+        "nusicMembership":"0x5b5d1F1479BcA067a253e1d6cBF655E0D377227F"
+    },
+    "mumbai": {
+        "nusicMembership":"0x5b5d1F1479BcA067a253e1d6cBF655E0D377227F"
+    },
+    "polygon": {
+        "nusicMembership":"0x5b5d1F1479BcA067a253e1d6cBF655E0D377227F"
+    }
+}
