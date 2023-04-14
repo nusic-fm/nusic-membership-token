@@ -1,5 +1,5 @@
 {
-  "name": "gaming-nft",
+  "name": "nusic-membership-nft",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -35,6 +35,5 @@
     "ts-node": "^10.2.1",
     "typechain": "^5.1.2",
     "typescript": "^4.4.3"
-  },
-  "dependencies": {}
+  }
 }
