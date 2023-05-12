@@ -1,10 +1,10 @@
-import { task } from "hardhat/config";
+import { task, HardhatUserConfig } from "hardhat/config";
 import "@nomiclabs/hardhat-waffle";
-import '@typechain/hardhat'
+import '@typechain/hardhat';
 import '@nomiclabs/hardhat-ethers'
 import 'hardhat-contract-sizer';
 import "@nomiclabs/hardhat-etherscan";
-//import "hardhat-gas-reporter";
+import "hardhat-gas-reporter";
 import dotenv from 'dotenv';
 
 dotenv.config();
@@ -17,7 +17,7 @@ const PRIVATE_KEY = process.env.PRIVATE_KEY;
 //const ALCHEMY_KEY = process.env.ALCHEMY_KEY;
 //const ALCHEMY_KEY_GOERLI = process.env.ALCHEMY_KEY_GOERLI;
 const PROD_PRIVATE_KEY = process.env.PROD_PRIVATE_KEY;
-//const ALCHEMY_MAINNET_KEY = process.env.ALCHEMY_MAINNET_KEY;
+const ALCHEMY_MAINNET_KEY = process.env.ALCHEMY_MAINNET_KEY;
 const ALCHEMY_KEY_MUMBAI = process.env.ALCHEMY_KEY_MUMBAI;
 const ALCHEMY_KEY_POLYGON_MAINNET = process.env.ALCHEMY_KEY_POLYGON_MAINNET;
 
@@ -85,11 +85,11 @@ export default {
       accounts: [`0x${PROD_PRIVATE_KEY}`]
     },
     */
-    /*
+    
     mainnet: {
       url: `https://eth-mainnet.g.alchemy.com/v2/${ALCHEMY_MAINNET_KEY}`,
       accounts: [`0x${PROD_PRIVATE_KEY}`]
-    }*/
+    }
   },
   contractSizer: {
     alphaSort: true,
@@ -100,7 +100,7 @@ export default {
   etherscan: {
     // Your API key for Etherscan
     // Obtain one at https://etherscan.io/
-    //apiKey: process.env.MAINNET_ETHERSCAN_API_KEY
+    apiKey: process.env.MAINNET_ETHERSCAN_API_KEY
     //apiKey: process.env.POLYSCAN_API_KEY
     //apiKey: process.env.MOONRIVER_ETHERSCAN_API_KEY
   },

@@ -1,11 +1,14 @@
 {
     "localhost": {
-        "nusicMembership":"0x5b5d1F1479BcA067a253e1d6cBF655E0D377227F"
+        "nusicAliveCollectivePass":"0x259A5E36F0Da5086F4f7f4Fb4AB01524b481BADF"
     },
     "mumbai": {
-        "nusicMembership":"0x5b5d1F1479BcA067a253e1d6cBF655E0D377227F"
+        "nusicAliveCollectivePass":"0x259A5E36F0Da5086F4f7f4Fb4AB01524b481BADF"
     },
     "polygon": {
-        "nusicMembership":"0x5b5d1F1479BcA067a253e1d6cBF655E0D377227F"
+        "nusicAliveCollectivePass":"0x259A5E36F0Da5086F4f7f4Fb4AB01524b481BADF"
+    },
+    "mainnet": {
+        "nusicAliveCollectivePass":"0x1F1DF390aAC703f483Ce68Fc164A544A7a9F5309"
     }
 }
