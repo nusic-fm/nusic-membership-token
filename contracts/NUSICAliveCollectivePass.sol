@@ -117,6 +117,17 @@ contract NUSICAliveCollectivePass is ERC721A, Pausable, Ownable, DefaultOperator
         emit Minted(msg.sender, tokenQuantity, msg.value, "CryptoNative");
     }
 
+    function mintTo(address user, uint256 tokenQuantity) public payable mintPerAddressNotExceed(tokenQuantity) whenNotPaused nonReentrant{
+        require(saleLive, "Sale Not Active"); // Sale should be active
+        require(publicTokenMinted + tokenQuantity <= PUBLIC_MAX, "Minting would exceed max public supply"); // Total Minted should not exceed Max public Supply
+        require(totalSupply() + tokenQuantity <= MAX_SUPPLY, "Minting would exceed max supply"); // Total Minted should not exceed Max Supply
+        require((price * tokenQuantity) == msg.value, "Incorrect Funds Sent" ); // Amount sent should be equal to price to quantity being minted
+        
+        _safeMint(user, tokenQuantity);
+        publicTokenMinted+=tokenQuantity;
+        emit Minted(user, tokenQuantity, msg.value, "CryptoNative");
+    }
+
     function crossMint(address _to, uint256 tokenQuantity) public payable mintPerAddressNotExceed(tokenQuantity) whenNotPaused nonReentrant {
         require(msg.sender == crossmintAddress,"This function is for Crossmint only.");
         // polygon mainnet = 0x12A80DAEaf8E7D646c4adfc4B107A2f1414E2002
