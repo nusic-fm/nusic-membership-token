@@ -18,7 +18,8 @@ async function main() {
   //const price = ethers.utils.parseEther("0.16");
   const price = await nusicAliveCollectivePass.price();
   const quantity = 2;
-  const txt = await nusicAliveCollectivePass.connect(owner).mint(quantity, {value: (price.mul(quantity))} );
+  const txt = await nusicAliveCollectivePass.connect(owner).mintTo("0xA0cb079D354b66188f533A919d1c58cd67aFe398",quantity, {value: (price.mul(quantity))} );
+  //const txt = await nusicAliveCollectivePass.connect(owner).mint(quantity, {value: (price.mul(quantity))} );
   console.log("txt.hash nusicMembership.mint = ",txt.hash);
   const txtReceipt = await txt.wait();
 

@@ -9,8 +9,8 @@ async function main() {
   console.log("Network = ",network.name);
 
   const NUSICAliveCollectivePass:NUSICAliveCollectivePass__factory =  await ethers.getContractFactory("NUSICAliveCollectivePass");
-  //const nusicAliveCollectivePass:NUSICAliveCollectivePass = await NUSICAliveCollectivePass.deploy("NM Pass A", "NMPA");
-  const nusicAliveCollectivePass:NUSICAliveCollectivePass = await NUSICAliveCollectivePass.deploy("NUSIC Alive Pass", "NAC",{gasPrice: 50000000000});
+  const nusicAliveCollectivePass:NUSICAliveCollectivePass = await NUSICAliveCollectivePass.deploy("NM Pass B", "NMPB");
+  //const nusicAliveCollectivePass:NUSICAliveCollectivePass = await NUSICAliveCollectivePass.deploy("NUSIC Alive Pass", "NAC",{gasPrice: 50000000000});
   await nusicAliveCollectivePass.deployed(); 
   console.log("NUSICAliveCollectivePass deployed to:", nusicAliveCollectivePass.address);
 
