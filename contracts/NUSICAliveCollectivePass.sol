@@ -24,7 +24,7 @@ contract NUSICAliveCollectivePass is ERC721A, Pausable, Ownable, DefaultOperator
 
     bool public saleLive = true;
 
-    uint256 public price = 0.25 ether;
+    uint256 public price = 0.03 ether;
     address public manager = 0x05C6b4369C5c1E25c2bc8C54b669c0b0C02D8b9a;
     address public treasuryAddress = 0x644a57c612Bf365cFF591Ba0535c7B5c0F6E175c;
 
