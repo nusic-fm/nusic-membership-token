@@ -24,11 +24,9 @@ contract NUSICAliveCollectivePass is ERC721A, Pausable, Ownable, DefaultOperator
 
     bool public saleLive = true;
 
-    uint256 public price = 0.03 ether;
     address public manager = 0x05C6b4369C5c1E25c2bc8C54b669c0b0C02D8b9a;
     address public treasuryAddress = 0x644a57c612Bf365cFF591Ba0535c7B5c0F6E175c;
 
-    address public crossmintAddress;
     uint256 public publicTokenMinted;
     uint256 public reserveTokenMinted;
 
@@ -49,8 +47,6 @@ contract NUSICAliveCollectivePass is ERC721A, Pausable, Ownable, DefaultOperator
     constructor(string memory _name, string memory _symbol) ERC721A(_name, _symbol) {
         //manager = msg.sender;
         //treasuryAddress = msg.sender;
-        crossmintAddress = 0xdAb1a1854214684acE522439684a145E62505233; // ETH Mainnet
-        //crossmintAddress = 0xDa30ee0788276c093e686780C25f6C9431027234; // Mumbai
         _setDefaultRoyalty(owner(), 500);
     }
 
@@ -83,11 +79,6 @@ contract NUSICAliveCollectivePass is ERC721A, Pausable, Ownable, DefaultOperator
         saleLive = !saleLive;
     }
 
-    function setPrice(uint256 newPrice) public onlyOwnerOrManager {
-        require(newPrice > 0, "Price can not be zero");
-        price = newPrice;
-    }
-
     function setManager(address _manager) public onlyOwner {
         manager = _manager;
     }
@@ -106,41 +97,24 @@ contract NUSICAliveCollectivePass is ERC721A, Pausable, Ownable, DefaultOperator
         return bytes(_tokenURI).length > 0 ? _tokenURI : defaultURI;
     }
 
-    function mint(uint256 tokenQuantity) public payable mintPerAddressNotExceed(tokenQuantity) whenNotPaused nonReentrant{
+    function mint(address user, uint256 tokenQuantity) public payable onlyOwnerOrManager mintPerAddressNotExceed(tokenQuantity) whenNotPaused nonReentrant{
         require(saleLive, "Sale Not Active"); // Sale should be active
         require(publicTokenMinted + tokenQuantity <= PUBLIC_MAX, "Minting would exceed max public supply"); // Total Minted should not exceed Max public Supply
         require(totalSupply() + tokenQuantity <= MAX_SUPPLY, "Minting would exceed max supply"); // Total Minted should not exceed Max Supply
-        require((price * tokenQuantity) == msg.value, "Incorrect Funds Sent" ); // Amount sent should be equal to price to quantity being minted
         
         _safeMint(msg.sender, tokenQuantity);
         publicTokenMinted+=tokenQuantity;
         emit Minted(msg.sender, tokenQuantity, msg.value, "CryptoNative");
     }
 
-    function mintTo(address user, uint256 tokenQuantity) public payable mintPerAddressNotExceed(tokenQuantity) whenNotPaused nonReentrant{
+    function mintTo(address user, uint256 tokenQuantity) public payable onlyOwnerOrManager mintPerAddressNotExceed(tokenQuantity) whenNotPaused nonReentrant{
         require(saleLive, "Sale Not Active"); // Sale should be active
         require(publicTokenMinted + tokenQuantity <= PUBLIC_MAX, "Minting would exceed max public supply"); // Total Minted should not exceed Max public Supply
         require(totalSupply() + tokenQuantity <= MAX_SUPPLY, "Minting would exceed max supply"); // Total Minted should not exceed Max Supply
-        require((price * tokenQuantity) == msg.value, "Incorrect Funds Sent" ); // Amount sent should be equal to price to quantity being minted
         
         _safeMint(user, tokenQuantity);
         publicTokenMinted+=tokenQuantity;
         emit Minted(user, tokenQuantity, msg.value, "CryptoNative");
-    }
-
-    function crossMint(address _to, uint256 tokenQuantity) public payable mintPerAddressNotExceed(tokenQuantity) whenNotPaused nonReentrant {
-        require(msg.sender == crossmintAddress,"This function is for Crossmint only.");
-        // polygon mainnet = 0x12A80DAEaf8E7D646c4adfc4B107A2f1414E2002
-        // polygon mumbai  = 0xDa30ee0788276c093e686780C25f6C9431027234  
-
-        require(saleLive, "Sale Not Active"); // Sale should be active
-        require(publicTokenMinted + tokenQuantity <= PUBLIC_MAX, "Minting would exceed max public supply"); // Total Minted should not exceed Max public Supply
-        require(totalSupply() + tokenQuantity <= MAX_SUPPLY, "Minting would exceed max supply"); // Total Minted should not exceed Max Supply
-        require((price * tokenQuantity) == msg.value, "Incorrect Funds Sent" ); // Amount sent should be equal to price to quantity being minted
-
-        _safeMint(_to, tokenQuantity);
-        publicTokenMinted+=tokenQuantity;
-        emit Minted(_to, tokenQuantity, msg.value, "CrossMint");
     }
 
     function withdraw() public onlyOwner nonReentrant{
